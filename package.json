@@ -1,0 +1,25 @@
+{
+  "name": "retimer",
+  "version": "0.0.1",
+  "description": "Reschedulable Timer for your node needs",
+  "main": "retimer.js",
+  "scripts": {
+    "test": "tape test.js | faucet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcollina/retimer.git"
+  },
+  "keywords": [
+    "schedulable",
+    "reschedulable",
+    "timer",
+    "setTimeout"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcollina/retimer/issues"
+  },
+  "homepage": "https://github.com/mcollina/retimer#readme"
+}
