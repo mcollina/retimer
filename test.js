@@ -47,8 +47,6 @@ test('reschedule multiple times', function (t) {
 test('clear a timer', function (t) {
   t.plan(1)
 
-  var start = Date.now()
-
   var timer = retimer(function () {
     t.fail('the timer should never get called')
   }, 20)
@@ -62,8 +60,6 @@ test('clear a timer', function (t) {
 
 test('clear a timer after a reschedule', function (t) {
   t.plan(1)
-
-  var start = Date.now()
 
   var timer = retimer(function () {
     t.fail('the timer should never get called')

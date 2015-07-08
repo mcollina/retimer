@@ -4,8 +4,10 @@
   "description": "Reschedulable Timer for your node needs",
   "main": "retimer.js",
   "scripts": {
+    "lint": "standard",
     "test": "tape test.js | faucet"
   },
+  "pre-commit": ["lint", "test"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcollina/retimer.git"
