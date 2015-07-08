@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/mcollina/retimer/issues"
   },
-  "homepage": "https://github.com/mcollina/retimer#readme"
+  "homepage": "https://github.com/mcollina/retimer#readme",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "pre-commit": "^1.0.10",
+    "standard": "^4.5.2",
+    "tape": "^4.0.0"
+  }
 }
