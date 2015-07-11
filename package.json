@@ -7,7 +7,10 @@
     "lint": "standard",
     "test": "tape test.js | faucet"
   },
-  "pre-commit": ["lint", "test"],
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcollina/retimer.git"
@@ -25,6 +28,7 @@
   },
   "homepage": "https://github.com/mcollina/retimer#readme",
   "devDependencies": {
+    "fastbench": "^1.0.0",
     "faucet": "0.0.1",
     "pre-commit": "^1.0.10",
     "standard": "^4.5.2",
