@@ -1,4 +1,4 @@
-# retimer
+# retimer&nbsp;&nbsp;[![Build Status](https://travis-ci.org/mcollina/retimer.png)](https://travis-ci.org/mcollina/retimer)
 
 reschedulable setTimeout for you node needs. This library is built for
 building a keep alive functionality across a large numbers of
