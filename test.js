@@ -6,20 +6,20 @@ var retimer = require('./')
 test('schedule a callback', function (t) {
   t.plan(1)
 
-  var start = getTime()
+  var start = Date.now()
 
   retimer(function () {
-    t.ok(getTime() - start >= 50, 'it was deferred ok!')
+    t.ok(Date.now() - start >= 50, 'it was deferred ok!')
   }, 50)
 })
 
 test('reschedule a callback', function (t) {
   t.plan(2)
 
-  var start = getTime()
+  var start = Date.now()
 
   var timer = retimer(function () {
-    t.ok(getTime() - start >= 70, 'it was deferred ok!')
+    t.ok(Date.now() - start >= 70, 'it was deferred ok!')
   }, 50)
 
   setTimeout(function () {
@@ -30,10 +30,10 @@ test('reschedule a callback', function (t) {
 test('reschedule multiple times', function (t) {
   t.plan(1)
 
-  var start = getTime()
+  var start = Date.now()
 
   var timer = retimer(function () {
-    t.ok(getTime() - start >= 90, 'it was deferred ok!')
+    t.ok(Date.now() - start >= 90, 'it was deferred ok!')
   }, 50)
 
   setTimeout(function () {
@@ -80,10 +80,10 @@ test('clear a timer after a reschedule', function (t) {
 test('return false if rescheduled too early', function (t) {
   t.plan(2)
 
-  var start = getTime()
+  var start = Date.now()
 
   var timer = retimer(function () {
-    t.ok(getTime() - start >= 50, 'it was deferred ok!')
+    t.ok(Date.now() - start >= 50, 'it was deferred ok!')
   }, 50)
 
   setTimeout(function () {
@@ -98,8 +98,3 @@ test('pass arguments to the callback', function (t) {
     t.equal(arg, 42, 'argument matches')
   }, 50, 42)
 })
-
-function getTime () {
-  var t = process.hrtime()
-  return Math.floor(t[0] * 1000 + t[1] / 1000000)
-}
