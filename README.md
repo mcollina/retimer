@@ -7,8 +7,8 @@ clients/sockets.
 Rescheduling a 10000 functions 20 times with an interval of 50ms (see
 `bench.js`), with 100 repetitions:
 
-* `benchSetTimeout*100`: 51867ms
-* `benchRetimer*100`: 34237ms
+* `benchSetTimeout*100: 36912.680ms`
+* `benchRetimer*100: 33213.134ms`
 
 ## Install
 
