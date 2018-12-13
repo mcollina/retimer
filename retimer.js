@@ -1,6 +1,6 @@
 'use strict'
 
-var assert = require('assert')
+var getTime = require('./time')
 
 function Retimer (callback, timeout, args) {
   var that = this
@@ -39,8 +39,13 @@ Retimer.prototype.clear = function () {
 }
 
 function retimer () {
-  assert.equal(typeof arguments[0], 'function', 'callback needed')
-  assert.equal(typeof arguments[1], 'number', 'timeout needed')
+  if (typeof arguments[0] !== 'function') {
+    throw new Error('callback needed')
+  }
+
+  if (typeof arguments[1] !== 'number') {
+    throw new Error('timeout needed')
+  }
 
   var args
 
@@ -53,11 +58,6 @@ function retimer () {
   }
 
   return new Retimer(arguments[0], arguments[1], args)
-}
-
-function getTime () {
-  var t = process.hrtime()
-  return Math.floor(t[0] * 1000 + t[1] / 1000000)
 }
 
 module.exports = retimer
