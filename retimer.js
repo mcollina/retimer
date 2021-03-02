@@ -10,12 +10,14 @@ class Retimer {
     this._rescheduled = 0
     this._scheduled = timeout
     this._args = args
+    this._triggered = false
 
     this._timerWrapper = () => {
       if (that._rescheduled > 0) {
         that._scheduled = that._rescheduled - (getTime() - that._started)
-        this._schedule(that._scheduled)
+        that._schedule(that._scheduled)
       } else {
+        that._triggered = true
         callback.apply(null, that._args)
       }
     }
@@ -24,17 +26,23 @@ class Retimer {
   }
 
   reschedule (timeout) {
+    if (!timeout) {
+      timeout = this._scheduled
+    }
     var now = getTime()
     if ((now + timeout) - (this._started + this._scheduled) < 0) {
       clearTimeout(this._timer)
       this._schedule(timeout)
-    } else {
+    } else if (!this._triggered) {
       this._started = now
       this._rescheduled = timeout
+    } else {
+      this._schedule(timeout)
     }
   }
 
   _schedule (timeout) {
+    this._triggered = false
     this._started = getTime()
     this._rescheduled = 0
     this._scheduled = timeout

@@ -91,6 +91,23 @@ test('can be rescheduled early', function (t) {
   }, 20)
 })
 
+test('can be rescheduled even if the timeout has already triggered', function (t) {
+  t.plan(2)
+
+  var start = Date.now()
+  var count = 0
+
+  var timer = retimer(function () {
+    count++
+    if (count === 1) {
+      t.ok(Date.now() - start >= 20, 'it was triggered!')
+      timer.reschedule(20)
+    } else {
+      t.ok(Date.now() - start >= 40, 'it was rescheduled!')
+    }
+  }, 20)
+})
+
 test('pass arguments to the callback', function (t) {
   t.plan(1)
 
