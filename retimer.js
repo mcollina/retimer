@@ -1,10 +1,10 @@
 'use strict'
 
-var getTime = require('./time')
+const getTime = require('./time')
 
 class Retimer {
   constructor (callback, timeout, args) {
-    var that = this
+    const that = this
 
     this._started = getTime()
     this._rescheduled = 0
@@ -29,7 +29,7 @@ class Retimer {
     if (!timeout) {
       timeout = this._scheduled
     }
-    var now = getTime()
+    const now = getTime()
     if ((now + timeout) - (this._started + this._scheduled) < 0) {
       clearTimeout(this._timer)
       this._schedule(timeout)
@@ -63,11 +63,12 @@ function retimer () {
     throw new Error('timeout needed')
   }
 
-  var args
+  let args
 
   if (arguments.length > 0) {
     args = new Array(arguments.length - 2)
 
+    /* eslint-disable no-var */
     for (var i = 0; i < args.length; i++) {
       args[i] = arguments[i + 2]
     }
