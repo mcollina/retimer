@@ -1,12 +1,12 @@
 'use strict'
 
-var test = require('tape')
-var retimer = require('./')
+const test = require('tape')
+const retimer = require('./')
 
 test('schedule a callback', function (t) {
   t.plan(1)
 
-  var start = Date.now()
+  const start = Date.now()
 
   retimer(function () {
     t.ok(Date.now() - start >= 50, 'it was deferred ok!')
@@ -16,9 +16,9 @@ test('schedule a callback', function (t) {
 test('reschedule a callback', function (t) {
   t.plan(1)
 
-  var start = Date.now()
+  const start = Date.now()
 
-  var timer = retimer(function () {
+  const timer = retimer(function () {
     t.ok(Date.now() - start >= 70, 'it was deferred ok!')
   }, 50)
 
@@ -30,9 +30,9 @@ test('reschedule a callback', function (t) {
 test('reschedule multiple times', function (t) {
   t.plan(1)
 
-  var start = Date.now()
+  const start = Date.now()
 
-  var timer = retimer(function () {
+  const timer = retimer(function () {
     t.ok(Date.now() - start >= 90, 'it was deferred ok!')
   }, 50)
 
@@ -47,7 +47,7 @@ test('reschedule multiple times', function (t) {
 test('clear a timer', function (t) {
   t.plan(1)
 
-  var timer = retimer(function () {
+  const timer = retimer(function () {
     t.fail('the timer should never get called')
   }, 20)
 
@@ -61,7 +61,7 @@ test('clear a timer', function (t) {
 test('clear a timer after a reschedule', function (t) {
   t.plan(1)
 
-  var timer = retimer(function () {
+  const timer = retimer(function () {
     t.fail('the timer should never get called')
   }, 20)
 
@@ -80,9 +80,9 @@ test('clear a timer after a reschedule', function (t) {
 test('can be rescheduled early', function (t) {
   t.plan(1)
 
-  var start = Date.now()
+  const start = Date.now()
 
-  var timer = retimer(function () {
+  const timer = retimer(function () {
     t.ok(Date.now() - start <= 500, 'it was rescheduled!')
   }, 500)
 
@@ -94,10 +94,10 @@ test('can be rescheduled early', function (t) {
 test('can be rescheduled even if the timeout has already triggered', function (t) {
   t.plan(2)
 
-  var start = Date.now()
-  var count = 0
+  const start = Date.now()
+  let count = 0
 
-  var timer = retimer(function () {
+  const timer = retimer(function () {
     count++
     if (count === 1) {
       t.ok(Date.now() - start >= 20, 'it was triggered!')
