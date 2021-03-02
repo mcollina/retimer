@@ -14,7 +14,7 @@ test('schedule a callback', function (t) {
 })
 
 test('reschedule a callback', function (t) {
-  t.plan(2)
+  t.plan(1)
 
   var start = Date.now()
 
@@ -23,7 +23,7 @@ test('reschedule a callback', function (t) {
   }, 50)
 
   setTimeout(function () {
-    t.equal(timer.reschedule(50), true, 'returns true')
+    timer.reschedule(50)
   }, 20)
 })
 
@@ -77,17 +77,34 @@ test('clear a timer after a reschedule', function (t) {
   }, 50)
 })
 
-test('return false if rescheduled too early', function (t) {
-  t.plan(2)
+test('can be rescheduled early', function (t) {
+  t.plan(1)
 
   var start = Date.now()
 
   var timer = retimer(function () {
-    t.ok(Date.now() - start >= 50, 'it was deferred ok!')
-  }, 50)
+    t.ok(Date.now() - start <= 500, 'it was rescheduled!')
+  }, 500)
 
   setTimeout(function () {
-    t.equal(timer.reschedule(10), false, 'return false')
+    timer.reschedule(10)
+  }, 20)
+})
+
+test('can be rescheduled even if the timeout has already triggered', function (t) {
+  t.plan(2)
+
+  var start = Date.now()
+  var count = 0
+
+  var timer = retimer(function () {
+    count++
+    if (count === 1) {
+      t.ok(Date.now() - start >= 20, 'it was triggered!')
+      timer.reschedule(20)
+    } else {
+      t.ok(Date.now() - start >= 40, 'it was rescheduled!')
+    }
   }, 20)
 })
 
