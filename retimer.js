@@ -2,40 +2,48 @@
 
 var getTime = require('./time')
 
-function Retimer (callback, timeout, args) {
-  var that = this
+class Retimer {
+  constructor (callback, timeout, args) {
+    var that = this
 
-  this._started = getTime()
-  this._rescheduled = 0
-  this._scheduled = timeout
-  this._args = args
+    this._started = getTime()
+    this._rescheduled = 0
+    this._scheduled = timeout
+    this._args = args
 
-  this._timer = setTimeout(timerWrapper, timeout)
+    this._timerWrapper = () => {
+      if (that._rescheduled > 0) {
+        that._scheduled = that._rescheduled - (getTime() - that._started)
+        this._schedule(that._scheduled)
+      } else {
+        callback.apply(null, that._args)
+      }
+    }
 
-  function timerWrapper () {
-    if (that._rescheduled > 0) {
-      that._scheduled = that._rescheduled - (getTime() - that._started)
-      that._timer = setTimeout(timerWrapper, that._scheduled)
-      that._rescheduled = 0
+    this._timer = setTimeout(this._timerWrapper, timeout)
+  }
+
+  reschedule (timeout) {
+    var now = getTime()
+    if ((now + timeout) - (this._started + this._scheduled) < 0) {
+      clearTimeout(this._timer)
+      this._schedule(timeout)
     } else {
-      callback.apply(null, that._args)
+      this._started = now
+      this._rescheduled = timeout
     }
   }
-}
 
-Retimer.prototype.reschedule = function (timeout) {
-  var now = getTime()
-  if ((now + timeout) - (this._started + this._scheduled) < 0) {
-    return false
-  } else {
-    this._started = now
-    this._rescheduled = timeout
-    return true
+  _schedule (timeout) {
+    this._started = getTime()
+    this._rescheduled = 0
+    this._scheduled = timeout
+    this._timer = setTimeout(this._timerWrapper, timeout)
   }
-}
 
-Retimer.prototype.clear = function () {
-  clearTimeout(this._timer)
+  clear () {
+    clearTimeout(this._timer)
+  }
 }
 
 function retimer () {
