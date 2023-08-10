@@ -3,9 +3,12 @@
   "version": "3.0.0",
   "description": "Reschedulable Timer for your node needs",
   "main": "retimer.js",
+  "types": "types.d.ts",
   "scripts": {
     "lint": "standard",
-    "test": "tape test.js | tap-dot"
+    "test": "npm run test:ci && npm run test:typescript",
+    "test:ci": "tape test.js | tap-dot",
+    "test:typescript": "tsd"
   },
   "pre-commit": [
     "lint",
@@ -28,13 +31,18 @@
   },
   "homepage": "https://github.com/mcollina/retimer#readme",
   "devDependencies": {
-    "fastbench": "^1.0.0",
-    "pre-commit": "^1.0.10",
-    "standard": "^16.0.0",
+    "fastbench": "^1.0.1",
+    "pre-commit": "^1.2.2",
+    "standard": "^17.1.0",
     "tap-dot": "^2.0.0",
-    "tape": "^5.0.0"
+    "tape": "^5.6.6",
+    "tsd": "^0.28.1"
   },
   "browser": {
-    "./time.js": "./time-browser.js"
+    "./time.js": "./time-browser.js",
+    "./timers.js": "./timers-browser.js"
+  },
+  "dependencies": {
+    "worker-timers": "^7.0.75"
   }
 }
