@@ -1,6 +1,6 @@
 {
   "name": "retimer",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Reschedulable Timer for your node needs",
   "main": "retimer.js",
   "types": "types.d.ts",
