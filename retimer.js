@@ -1,6 +1,7 @@
 'use strict'
 
 const getTime = require('./time')
+const { clearTimeout, setTimeout } = require('./timers')
 
 class Retimer {
   constructor (callback, timeout, args) {
@@ -78,3 +79,4 @@ function retimer () {
 }
 
 module.exports = retimer
+module.exports.Retimer = Retimer
